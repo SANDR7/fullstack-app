@@ -9,3 +9,11 @@ export const sessionOptions: IronSessionOptions = {
     sameSite: 'strict'
   }
 };
+
+declare module "iron-session" {
+  interface IronSessionData {
+    // TODO: update types
+    user?: object;
+    isLoggedIn: boolean;
+  }
+}
