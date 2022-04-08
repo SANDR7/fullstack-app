@@ -8,7 +8,7 @@ const PageContainer: FC<any> = (props) => {
   const meta = {
     title: `Next Prisma - template`,
     description: 'Authentication app that combines front-end & back-end',
-	type: 'website',
+    type: 'website',
     ...customMeta
   };
   return (
