@@ -1,50 +1,52 @@
-import { createLogger, format, transports } from 'winston';
+import { resolve } from 'path';
+import { fileURLToPath } from 'url';
+import winston from 'winston';
 
-const { combine, timestamp, printf, label } = format;
-const logLevels = {
-  fatal: 0,
-  error: 1,
-  warn: 2,
-  info: 3,
-  debug: 4,
-  trace: 5
-};
+const { format, transports, createLogger } = winston;
+const { combine, timestamp, printf } = format;
 
-const myFormat = printf(({ level, message, timestamp, ...metadata }) => {
-  let msg = `${timestamp} [${level}] : ${message} `;
-  if (metadata) {
-    msg += JSON.stringify(metadata);
+const logger = (meta_url: string) => {
+  const root = resolve('./');
+  const file = fileURLToPath(new URL(meta_url));
+  const file_path = file.replace(root, '');
+
+  const customFormat = printf(({ level, message, timestamp, stack }) => {
+    return `${timestamp} [${level}] ${file_path}: ${stack || message}`;
+  });
+
+  const logger = createLogger({
+    level: 'info',
+    format: combine(
+      timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+      format.splat(),
+      format.errors({ stack: true }),
+      customFormat
+    ),
+    defaultMeta: { service: 'user-service' },
+    transports: [
+      new transports.File({ filename: 'logs/NEXT_ERROR.log', level: 'error' }),
+      new transports.File({ filename: 'logs/NEXT_LOG.log' }),
+      new transports.File({
+        filename: 'logs/NEXT_LOG.json',
+        format: combine(
+          timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+          format.json(),
+          format.errors({ stack: true })
+        )
+      })
+    ]
+  });
+
+  // Log also to console if not in production
+  if (process.env.NODE_ENV === 'development') {
+    logger.add(
+      new transports.Console({
+        format: customFormat
+      })
+    );
   }
-  return msg;
-});
 
-/** 
-
-Use only on Server-side (SSR)
-
-*/
-const logger = createLogger({
-  levels: logLevels,
-  transports: [
-    new transports.File({
-      filename: './logs/application.log',
-
-      format: combine(
-        label({ label: 'NEXT_LOG', message: true }),
-        timestamp(),
-        myFormat
-      )
-    }),
-    new transports.File({
-      filename: './logs/application_log.json',
-		
-      format: combine(
-        label({ label: 'NEXT_LOG', message: true  }),
-        timestamp(),
-        format.json()
-      )
-    })
-  ]
-});
+  return logger;
+};
 
 export default logger;
