@@ -41,7 +41,7 @@ const logger = (meta_url: string) => {
   if (process.env.NODE_ENV === 'development') {
     logger.add(
       new transports.Console({
-        format: customFormat
+        format: combine(format.colorize(), customFormat)
       })
     );
   }
