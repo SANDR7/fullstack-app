@@ -10,7 +10,7 @@ const Home: NextPage = () => {
   return (
   <PageContainer>
     Home
-  </PageContainer>
+  </PageContainer
   )
 }
 
