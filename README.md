@@ -5,7 +5,30 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
+npm install
+# then
+npm run prepare
+# then
 npm run dev
-# or
-yarn dev
+```
+
+Now you can start editing `/pages/index.tsx`
+
+### Helpful commands
+
+```bash
+// format all files with prettier
+npm run format
+-------------
+// check prettier format
+npm run check
+-------------
+// analyze bundle size
+npm run analyze
+-------------
+// view prisma studio
+npm run db:view
+-------------
+// push database table models to remote server
+npm run db:push
 ```

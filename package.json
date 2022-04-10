@@ -20,7 +20,7 @@
     "lint": "next lint",
     "export": "next export",
     "prepare": "husky install",
-    "format": "prettier --write .",
+    "format": "prettier --write . && npx prisma generate",
     "check": "prettier --check .",
     "analyze": "cross-env ANALYZE=true npm run build",
     "db:migrate": "npx prisma migrate dev",
