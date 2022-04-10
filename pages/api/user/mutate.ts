@@ -11,8 +11,6 @@ export default withIronSessionApiRoute(handler, sessionOptions);
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { m } = req.query as ApiUserMutations; //if m as mutation e.g. posts
 
-  // const test = m as mApi;
-
   if (req.method === 'PUT') {
     return res.status(201).json({});
   }
