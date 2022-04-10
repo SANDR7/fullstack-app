@@ -37,7 +37,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ModalsProvider>
           <SWRConfig
             value={{
-              fetcher: (url: string) => axios(url).then((res) => res.data),
+              fetcher: (url: string) =>
+                axios(url)
+                  .then((res) => res.data)
+                  .catch((err) => {
+                    LOGGER.error(err);
+                    console.error(err);
+                  }),
               onError: (err) => {
                 LOGGER.error(err);
                 console.error(err);
