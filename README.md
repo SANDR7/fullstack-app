@@ -32,3 +32,12 @@ npm run db:view
 // push database table models to remote server
 npm run db:push
 ```
+
+### Handy hash function in node
+
+```bash
+# Hash
+node
+# >
+> require("crypto").randomBytes(64).toString('hex')
+```
