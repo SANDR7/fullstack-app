@@ -5,5 +5,19 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.fixAll.format": true
+  },
+  "files.exclude": {
+    ".husky": true,
+    ".github": true,
+    "*.d.ts": true,
+    "*.md": true,
+    ".npmrc": true,
+    ".gitignore": true,
+    ".prettierignore": true,
+    "package-lock.json": true,
+    "node_modules/": true,
+    ".eslintrc.json": true,
+    "tsconfig.json": true,
+    "server.js": true
   }
 }
