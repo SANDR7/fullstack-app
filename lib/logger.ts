@@ -4,7 +4,9 @@ import winston from 'winston';
 
 const { format, transports, createLogger } = winston;
 const { combine, timestamp, printf } = format;
-
+/**
+ * Logger should only by used on Server-Side (SSR)
+ **/
 const logger = (meta_url: string) => {
   const root = resolve('./');
   const file = fileURLToPath(new URL(meta_url));
