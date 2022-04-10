@@ -1,3 +1,4 @@
+import logger from '@/lib/logger';
 import {
   ColorScheme,
   ColorSchemeProvider,
@@ -8,6 +9,8 @@ import { ModalsProvider } from '@mantine/modals';
 import axios from 'axios';
 import type { AppProps } from 'next/app';
 import { SWRConfig } from 'swr';
+
+const LOGGER = logger(import.meta.url);
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -36,6 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             value={{
               fetcher: (url: string) => axios(url).then((res) => res.data),
               onError: (err) => {
+                LOGGER.error(err);
                 console.error(err);
               }
             }}
