@@ -14,7 +14,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     });
   } else {
     return res.json({
-      isLoggedIn: true
+      isLoggedIn: false
     });
   }
 }
