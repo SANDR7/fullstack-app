@@ -9,10 +9,19 @@ const LOGGER = logger(import.meta.url);
 export default withIronSessionApiRoute(handler, sessionOptions);
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const user = req.session.user as any;
   const { m } = req.query as ApiUserMutations; //if m as mutation e.g. posts
 
+  if (!user || user?.isLoggedIn === false || !m) {
+    LOGGER.warn(`User tried to access route without token`);
+    res.status(401).end();
+    return;
+  }
+
+  // ============================================================
+
   if (req.method === 'PUT') {
-    return res.status(201).json({});
+    return res.status(201).json({ ok: true });
   }
 
   if (req.method === 'GET') {
@@ -20,7 +29,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       // fetch with posts
     }
 
-    return res.status(200).json({});
+    return res.status(200).json({ ok: true });
   }
 
   if (req.method === 'POST') {
@@ -28,10 +37,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       // create post logic
     }
 
-    return res.status(200).json({});
+    return res.status(200).json({ ok: true });
   }
 
   if (req.method === 'DELETE') {
-    return res.status(204).json({});
+    return res.status(204).json({ ok: true });
   }
 }
