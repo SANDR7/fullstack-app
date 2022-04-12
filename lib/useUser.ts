@@ -22,7 +22,6 @@ const useUser = ({ redirectTo = '', redirectIfFound = false } = {}) => {
     ) {
       Router.push(redirectTo);
     }
-    return () => {};
   }, [user, redirectIfFound, redirectTo]);
 
   return { user, mutateUser, error };
