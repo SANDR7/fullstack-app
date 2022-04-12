@@ -24,8 +24,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       toggleColorScheme={toggleColorScheme}
     >
       <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
+        withGlobalStyles={true}
+        withNormalizeCSS={true}
         theme={{
           fontFamily: 'sans-serif',
           colorScheme

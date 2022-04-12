@@ -6,7 +6,7 @@ const Home: NextPage = () => {
   // const { user, mutateUser } = useUser();
   // when user is logged in || redirectIfFound -> login page = true home page = false
   // const { user, mutateUser } = useUser({redirectIfFound: true, redirectTo: '/dashboard'});
-  //const { events } = useEvents(user, '/user/mutate');
+  // const { events } = useEvents(user, '/user/mutate');
   return <PageContainer>Home</PageContainer>;
 };
 
