@@ -52,7 +52,7 @@ const logger = (metaUrl: string) => {
     );
   }
 
-  return logger;
+  return CreateLogger;
 };
 
 export default logger;

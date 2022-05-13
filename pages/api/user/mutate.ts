@@ -10,7 +10,7 @@ export default withIronSessionApiRoute(handler, sessionOptions);
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const user = req.session.user as any;
-  const { m } = req.query as ApiUserMutations; //if m as mutation e.g. posts
+  const { m } = req.query as ApiUserMutations; // if m as mutation e.g. posts
 
   if (!user || user?.isLoggedIn === false || !m) {
     LOGGER.warn(`User tried to access route without token`);
