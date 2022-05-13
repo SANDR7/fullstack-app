@@ -4,19 +4,23 @@ import winston from 'winston';
 
 const { format, transports, createLogger } = winston;
 const { combine, timestamp, printf } = format;
-/**
+/*
+ *
  * Logger should only be used on Server-Side (SSR)
- **/
-const logger = (meta_url: string) => {
+ *
+ */
+const logger = (metaUrl: string) => {
   const root = resolve('./');
-  const file = fileURLToPath(new URL(meta_url));
-  const file_path = file.replace(root, '');
+  const file = fileURLToPath(new URL(metaUrl));
+  const filePath = file.replace(root, '');
 
-  const customFormat = printf(({ level, message, timestamp, stack }) => {
-    return `${timestamp} [${level}] ${file_path}: ${stack || message}`;
-  });
+  const customFormat = printf(
+    ({ level, message, timestamp: timeStamp, stack }) => {
+      return `${timeStamp} [${level}] ${filePath}: ${stack || message}`;
+    }
+  );
 
-  const logger = createLogger({
+  const CreateLogger = createLogger({
     level: 'info',
     format: combine(
       timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
@@ -41,7 +45,7 @@ const logger = (meta_url: string) => {
 
   // Log also to console if not in production
   if (process.env.NODE_ENV === 'development') {
-    logger.add(
+    CreateLogger.add(
       new transports.Console({
         format: combine(format.colorize(), customFormat)
       })
